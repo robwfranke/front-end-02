@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class FileUploadService {
+class ImageUploadService {
     upload(file, onUploadProgress) {
         let formData = new FormData();
 
@@ -19,4 +19,4 @@ class FileUploadService {
     }
 }
 
-export default new FileUploadService();
+export default new ImageUploadService();
