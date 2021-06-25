@@ -5,6 +5,7 @@ import FilesUpload from "./components/FilesUpload";
 import FilesUpload02 from "./components/FilesUpload02";
 import UploadImages from "./components/ImageUpload";
 import LeighHalliday from "./components/LeighHalliday";
+import Poging01 from "./components/Poging01";
 
 // voor uitleg: https://bezkoder.com/react-hooks-multiple-file-upload/
 //https://bezkoder.com/react-image-upload-preview/
@@ -25,6 +26,7 @@ function App() {
 
             {/*<FilesUpload/>*/}
             <FilesUpload02/>
+            <Poging01/>
 
             {/*<UploadImages />*/}
 
