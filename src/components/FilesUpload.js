@@ -44,7 +44,8 @@ function UploadFiles ()  {
             });
     };
 
-    function uploadFiles  ()  {
+
+    function uploadFilesTest  ()  {
         const files = Array.from(selectedFiles);
 
         let _progressInfos = files.map(file => ({ percentage: 0, fileName: file.name }));
@@ -66,6 +67,8 @@ function UploadFiles ()  {
 
     return (
         <div>
+            <h4>React Hooks Multiple Files Upload</h4>
+
             {progressInfos && progressInfos.val.length > 0 &&
             progressInfos.val.map((progressInfo, index) => (
                 <div className="mb-2" key={index}>
@@ -96,7 +99,7 @@ function UploadFiles ()  {
                     <button
                         className="btn btn-success btn-sm"
                         disabled={!selectedFiles}
-                        onClick={uploadFiles}
+                        onClick={uploadFilesTest}
                     >
                         Upload
                     </button>
@@ -119,7 +122,8 @@ function UploadFiles ()  {
                     {fileInfos &&
                     fileInfos.map((file, index) => (
                         <li className="list-group-item" key={index}>
-                            <a href={file.url}>{file.name}</a>
+                            {/*<a href={file.url}>{file.name}</a>*/}
+                            <img className="preview" src={file.url} alt="" />
                         </li>
                     ))}
                 </ul>

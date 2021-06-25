@@ -75,6 +75,7 @@ export default class UploadImages extends Component {
 
         return (
             <div>
+                <h4>React Hooks </h4>
                 <div className="row">
                     <div className="col-8">
                         <label className="btn btn-default p-0">
