@@ -11,6 +11,23 @@ function Poging01() {
     const [fileInfos, setFileInfos] = useState([]);
     const [filePresent, setFilePresent] = useState(false);
     const [length, setLength] = useState(0);
+    const [fileName, setFileName] = useState();
+    const [fileUrl, setFileUrl] = useState()
+    const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
+
+
+    function keepName(file) {
+
+
+        setFileName(file.name)
+        setFileUrl(file.url);
+        setShowFileFromKeepName(true)
+
+
+        console.log("fileNameP: ", fileName)
+        console.log("fileUrlP: ", fileUrl)
+
+    }
 
 
     useEffect(() => {
@@ -28,9 +45,6 @@ function Poging01() {
             console.log("IN getFilesFromBackend")
 
             const response = await axios.get("http://localhost:8080/files")
-
-
-
 
 
             setMessage("Upload ok")
@@ -53,20 +67,35 @@ function Poging01() {
 
     return (
         <>
-            <div>Hierzo</div>
+            <h2>Poging01</h2>
             <h3>Message {message} aantal files{length}</h3>
 
-            {length>0 &&
+            {showFileFromKeepName &&
+            <div>fileName uit keepName: {fileName}
+                <div>
+                    fileUrl uit keepName: {fileUrl}
+                </div>
+
+            </div>
+
+            }
+
+            {length > 0 &&
             <fieldset>
 
 
                 <ul>
                     {fileInfos.map((file) => {
-                       return<li key={file.url}>
-                           <span>naam: {file.name}</span>
+                            return <li key={file.url}>
+                           <span
+                               onClick={() => keepName(file)}
+                           >naam bij opklikken worden de gegevens doorgestuurd naar keepName: <h3>{file.name}</h3>
 
-                       </li>
 
+                           </span>
+
+
+                            </li>
 
 
                         }
