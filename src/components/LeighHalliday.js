@@ -3,6 +3,9 @@ import styles from "./LeighHalliday.module.css"
 
 function LeighHalliday() {
 
+    const fileInputRef=useRef<HTMLInputElement>("");
+
+
     return (
 
         <>
@@ -12,6 +15,13 @@ function LeighHalliday() {
                 <form>
                     <button
                         className={styles["button"]}
+                        onClick={(event)=>{
+                            event.preventDefault();
+                            fileInputRef().click();
+
+                        }}
+
+
                     >
                         add image
                     </button>

@@ -18,7 +18,7 @@ export default class UploadImages extends Component {
     }
 
     componentDidMount() {
-        UploadService.getFiles().then((response) => {
+        UploadService.getFilesFromBackend().then((response) => {
             this.setState({
                 imageInfos: response.data,
             });
@@ -39,7 +39,7 @@ export default class UploadImages extends Component {
             progress: 0,
         });
 
-        UploadService.upload(this.state.currentFile, (event) => {
+        UploadService.uploadToBackend(this.state.currentFile, (event) => {
             this.setState({
                 progress: Math.round((100 * event.loaded) / event.total),
             });
@@ -48,7 +48,7 @@ export default class UploadImages extends Component {
                 this.setState({
                     message: response.data.message,
                 });
-                return UploadService.getFiles();
+                return UploadService.getFilesFromBackend();
             })
             .then((files) => {
                 this.setState({
@@ -58,7 +58,7 @@ export default class UploadImages extends Component {
             .catch((err) => {
                 this.setState({
                     progress: 0,
-                    message: "Could not upload the image!",
+                    message: "Could not uploadToBackend the image!",
                     currentFile: undefined,
                 });
             });

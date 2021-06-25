@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import FilesUpload from "./components/FilesUpload";
+import FilesUpload02 from "./components/FilesUpload02";
 import UploadImages from "./components/ImageUpload";
 import LeighHalliday from "./components/LeighHalliday";
 
@@ -23,8 +24,10 @@ function App() {
 
 
             {/*<FilesUpload/>*/}
+            <FilesUpload02/>
+
             {/*<UploadImages />*/}
-            <LeighHalliday/>
+
 
         </div>
 

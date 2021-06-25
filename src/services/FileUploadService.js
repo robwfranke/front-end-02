@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-function upload (file, onUploadProgress)  {
+function uploadToBackend (file, onUploadProgress)  {
     let formData = new FormData();
 
     formData.append("file", file);
@@ -18,13 +18,13 @@ function upload (file, onUploadProgress)  {
     });
 };
 
-function getFiles ()  {
+function getFilesFromBackend ()  {
     return http.get("http://localhost:8080/files");
 };
 
 const FileUploadService = {
-    upload,
-    getFiles,
+    uploadToBackend,
+    getFilesFromBackend
 };
 
 export default FileUploadService;

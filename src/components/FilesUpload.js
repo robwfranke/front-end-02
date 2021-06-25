@@ -9,7 +9,7 @@ function UploadFiles ()  {
     const progressInfosRef = useRef(null)
 
     useEffect(() => {
-        UploadService.getFiles().then((response) => {
+        UploadService.getFilesFromBackend().then((response) => {
             setFileInfos(response.data);
         });
     }, []);
@@ -21,7 +21,7 @@ function UploadFiles ()  {
 
     function upload (idx, file)  {
         let _progressInfos = [...progressInfosRef.current.val];
-        return UploadService.upload(file, (event) => {
+        return UploadService.uploadToBackend(file, (event) => {
             _progressInfos[idx].percentage = Math.round(
                 (100 * event.loaded) / event.total
             );
@@ -39,7 +39,7 @@ function UploadFiles ()  {
 
                 setMessage((prevMessage) => ([
                     ...prevMessage,
-                    "Could not upload the file: " + file.name,
+                    "Could not uploadToBackend the file: " + file.name,
                 ]));
             });
     };
@@ -57,7 +57,7 @@ function UploadFiles ()  {
         const uploadPromises = files.map((file, i) => upload(i, file));
 
         Promise.all(uploadPromises)
-            .then(() => UploadService.getFiles())
+            .then(() => UploadService.getFilesFromBackend())
             .then((files) => {
                 setFileInfos(files.data);
             });
@@ -67,7 +67,7 @@ function UploadFiles ()  {
 
     return (
         <div>
-            <h4>React Hooks Multiple Files Upload</h4>
+            <h4> Upload_01</h4>
 
             {progressInfos && progressInfos.val.length > 0 &&
             progressInfos.val.map((progressInfo, index) => (

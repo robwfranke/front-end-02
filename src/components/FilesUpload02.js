@@ -9,7 +9,7 @@ function UploadFiles_02 ()  {
     const progressInfosRef = useRef(null)
 
     useEffect(() => {
-        UploadService.getFiles().then((response) => {
+        UploadService.getFilesFromBackend().then((response) => {
             setFileInfos(response.data);
         });
     }, []);
@@ -21,7 +21,7 @@ function UploadFiles_02 ()  {
 
     function upload (idx, file)  {
         let _progressInfos = [...progressInfosRef.current.val];
-        return UploadService.upload(file, (event) => {
+        return UploadService.uploadToBackend(file, (event) => {
             _progressInfos[idx].percentage = Math.round(
                 (100 * event.loaded) / event.total
             );
@@ -39,7 +39,7 @@ function UploadFiles_02 ()  {
 
                 setMessage((prevMessage) => ([
                     ...prevMessage,
-                    "Could not upload the file: " + file.name,
+                    "Could not uploadToBackend the file: " + file.name,
                 ]));
             });
     };
@@ -57,7 +57,7 @@ function UploadFiles_02 ()  {
         const uploadPromises = files.map((file, i) => upload(i, file));
 
         Promise.all(uploadPromises)
-            .then(() => UploadService.getFiles())
+            .then(() => UploadService.getFilesFromBackend())
             .then((files) => {
                 setFileInfos(files.data);
             });
@@ -68,25 +68,6 @@ function UploadFiles_02 ()  {
     return (
         <div>
             <h4>FileUpload_02</h4>
-
-            {progressInfos && progressInfos.val.length > 0 &&
-            progressInfos.val.map((progressInfo, index) => (
-                <div className="mb-2" key={index}>
-                    <span>{progressInfo.fileName}</span>
-                    <div className="progress">
-                        <div
-                            className="progress-bar progress-bar-info"
-                            role="progressbar"
-                            aria-valuenow={progressInfo.percentage}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: progressInfo.percentage + "%" }}
-                        >
-                            {progressInfo.percentage}%
-                        </div>
-                    </div>
-                </div>
-            ))}
 
             <div className="row my-3">
                 <div className="col-8">
@@ -131,6 +112,6 @@ function UploadFiles_02 ()  {
             </div>
         </div>
     );
-};
+}
 
 export default UploadFiles_02;
