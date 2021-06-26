@@ -1,20 +1,17 @@
 import React, {useState, useEffect, useRef} from "react";
-import UploadService from "../services/FileUploadService";
-import http from "../http-common";
 import axios from "axios";
-
 
 function Poging01() {
 
 
     const [message, setMessage] = useState();
     const [fileInfos, setFileInfos] = useState([]);
-    const [filePresent, setFilePresent] = useState(false);
     const [length, setLength] = useState(0);
     const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState()
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
-
+    const [fileToUpload, setFileToUpload] = useState(null);
+    const [nameFileToUpload, setNameFileToUpload] = useState("")
 
     function keepName(file) {
 
@@ -31,11 +28,7 @@ function Poging01() {
 
 
     useEffect(() => {
-
-
         getFilesFromBackend()
-
-
     }, []);
 
 
@@ -47,14 +40,9 @@ function Poging01() {
             const response = await axios.get("http://localhost:8080/files")
 
 
-            setMessage("Upload ok")
+            setMessage("Files goed opgehaald uit de backend")
             setLength(response.data.length);
             setFileInfos(response.data);
-
-
-            console.log("response", response)
-            console.log("response.data", response.data)
-            console.log("fileInfos ", fileInfos)
 
 
         } catch (e) {
@@ -64,6 +52,15 @@ function Poging01() {
 
 
     }
+
+
+    function FileToUploadFunction() {
+
+        console.log("IN FileToUploadFunction() ")
+
+
+    }
+
 
     return (
         <>
@@ -90,22 +87,51 @@ function Poging01() {
                            <span
                                onClick={() => keepName(file)}
                            >naam bij opklikken worden de gegevens doorgestuurd naar keepName: <h3>{file.name}</h3>
-
-
                            </span>
-
-
                             </li>
-
-
                         }
                     )}
-
-
                 </ul>
+
+                <div>
+                    <img src={fileUrl}/>
+
+                </div>
+
+
+                <fieldset>
+                    {/*<div className="input-field-file">*/}
+                    {/*    <label className="btn">*/}
+                    {/*        <input */}
+                    {/*            type="file"*/}
+                    {/*            accept="image/*"*/}
+                    {/*            onChange={(event => setFileToUpload(event.target.files[0])} />*/}
+                    {/*    </label>*/}
+                    {/*</div>*/}
+
+                    <div className="App">
+                        <form>
+                            <input
+                                type="text"
+                                value={nameFileToUpload}
+                                onChange={(e) => setNameFileToUpload(e.target.value)}
+                            />
+
+                            <input
+                                type="file"
+                                value={nameFileToUpload}
+                                onChange={(e) => setNameFileToUpload(e.target.files[0])}
+                            />
+                        </form>
+                    </div>
+
+
+                </fieldset>
 
 
             </fieldset>
+
+
             }
 
 
