@@ -5,6 +5,9 @@ function uploadToBackend (file, onUploadProgress)  {
 
     formData.append("file", file);
 
+    console.log("FileUploadService file:", file)
+    console.log("formData: ",formData)
+
     return http.post("http://localhost:8080/upload", formData, {
         headers: {
             "Content-Type": "multipart/form-data",

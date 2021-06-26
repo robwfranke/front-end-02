@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useForm} from 'react-hook-form';
+import http from "../http-common";
+
 function Poging01() {
 
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -10,8 +12,8 @@ function Poging01() {
     const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState()
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
-    const [fileToUpload, setFileToUpload] = useState(null);
-    const [nameFileToUpload, setNameFileToUpload] = useState("")
+    const [fileToUpload, setFileToUpload] = useState();
+    const [nameFileToUpload, setNameFileToUpload] = useState()
 
     function keepName(file) {
 
@@ -54,20 +56,56 @@ function Poging01() {
     }
 
 
-    function FileToUploadFunction() {
+    async function sendFileToBackend() {
 
-        console.log("IN FileToUploadFunction() ")
+        console.log("IN sendFileToBackend() ")
+        console.log("NameFileToUpload: ", nameFileToUpload)
+        console.log("FileToUpload: ", fileToUpload)
 
+
+
+
+        try {
+            let formData= new FormData()
+
+            console.log("TRY fileToUpload:", fileToUpload)
+
+            // LET OP!!!! name: "file"  DIT MOET DUS "file" blijven
+            formData.append("file", fileToUpload);
+
+            console.log("FormData:",formData)
+
+
+            const response = await axios.post("http://localhost:8080/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+
+                    "Content-type": "application/json",
+
+
+                },
+            });
+
+
+
+            console.log("response",response)
+        }catch (error){
+
+            console.log("Foutje bij het versturen naar backend")
+
+
+
+        }
 
     }
 
 
-    function onSubmit(data) {
+    function onSubmit() {
 
         console.log("IN onSubmit")
         console.log("NameFileToUpload: ", nameFileToUpload)
         console.log("FileToUpload: ", fileToUpload)
-
+        sendFileToBackend();
     }
 
 
@@ -108,9 +146,6 @@ function Poging01() {
                 </div>
 
 
-
-
-
             </fieldset>
 
             }
@@ -131,18 +166,18 @@ function Poging01() {
                         <input
                             type="file"
                             // value={nameFileToUpload}
-                            onChange={(e) => setNameFileToUpload(e.target.files[0])}
+                            onChange={(e) => setFileToUpload(e.target.files[0])}
                         />
-                        <input type="submit"/>
+                        <button
+                            type="submit"
+                        >
+                            Voeg toe!
+                        </button>
                     </form>
                 </div>
 
 
             </fieldset>
-
-
-
-
 
 
         </>
