@@ -19,6 +19,7 @@ function UploadFiles ()  {
         setProgressInfos({ val: [] });
     };
 
+
     function upload (idx, file)  {
         let _progressInfos = [...progressInfosRef.current.val];
         return UploadService.uploadToBackend(file, (event) => {
