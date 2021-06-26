@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
-
+import {useForm} from 'react-hook-form';
 function Poging01() {
 
-
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const [message, setMessage] = useState();
     const [fileInfos, setFileInfos] = useState([]);
     const [length, setLength] = useState(0);
@@ -62,6 +62,15 @@ function Poging01() {
     }
 
 
+    function onSubmit(data) {
+
+        console.log("IN onSubmit")
+        console.log("NameFileToUpload: ", nameFileToUpload)
+        console.log("FileToUpload: ", fileToUpload)
+
+    }
+
+
     return (
         <>
             <h2>Poging01</h2>
@@ -99,40 +108,41 @@ function Poging01() {
                 </div>
 
 
-                <fieldset>
-                    {/*<div className="input-field-file">*/}
-                    {/*    <label className="btn">*/}
-                    {/*        <input */}
-                    {/*            type="file"*/}
-                    {/*            accept="image/*"*/}
-                    {/*            onChange={(event => setFileToUpload(event.target.files[0])} />*/}
-                    {/*    </label>*/}
-                    {/*</div>*/}
-
-                    <div className="App">
-                        <form>
-                            <input
-                                type="text"
-                                value={nameFileToUpload}
-                                onChange={(e) => setNameFileToUpload(e.target.value)}
-                            />
-
-                            <input
-                                type="file"
-                                value={nameFileToUpload}
-                                onChange={(e) => setNameFileToUpload(e.target.files[0])}
-                            />
-                        </form>
-                    </div>
 
 
-                </fieldset>
+
+            </fieldset>
+
+            }
+
+
+            <fieldset>
+
+
+                <div className="App">
+                    <h1>File kiezen en versturen naar Backend</h1>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input
+                            type="text"
+                            // value={nameFileToUpload}
+                            onChange={(e) => setNameFileToUpload(e.target.value)}
+                        />
+
+                        <input
+                            type="file"
+                            // value={nameFileToUpload}
+                            onChange={(e) => setNameFileToUpload(e.target.files[0])}
+                        />
+                        <input type="submit"/>
+                    </form>
+                </div>
 
 
             </fieldset>
 
 
-            }
+
+
 
 
         </>
