@@ -17,12 +17,13 @@ function Poging01() {
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
     const [fileToUpload, setFileToUpload] = useState();
     const [nameFileToUpload, setNameFileToUpload] = useState()
-    const [imagePreview, setImagePreview] = useState(null)
+    const [updateFiles, setupdateFiles] = useState(false)
 
 
     function keepName(file) {
 
         console.log("file in keepName: ", file)
+
         setFileName(file.name)
         setFileUrl(file.url);
         setFileID(file.id);
@@ -32,9 +33,31 @@ function Poging01() {
     }
 
 
-    function deletePicture(){
+    async function deletePicture() {
         setFileUrl("")
         setShowFileFromKeepName(false)
+        console.log("FILE ID:",fileID)
+        try {
+            // const response = await axios.delete(`http://localhost:8080/orders/delete/ordername/${orderName}`, {
+
+            const response = await axios.delete(`http://localhost:8080/files/${fileID}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization: `Bearer ${jwtToken}`, /*BACK TICK!!!!!*/
+                }
+            })
+            setupdateFiles(true)
+
+            console.log("PLAATJE WEG")
+
+
+
+
+
+
+        } catch (error) {
+            console.log("PLAATJE NIET WEG")
+        }
 
     }
 
@@ -42,6 +65,15 @@ function Poging01() {
     useEffect(() => {
         getFilesFromBackend()
     }, []);
+
+
+    useEffect(() => {
+        if(updateFiles){
+            getFilesFromBackend()
+            setupdateFiles(false)
+        }
+
+    }, [updateFiles]);
 
 
     async function getFilesFromBackend() {
@@ -94,7 +126,7 @@ function Poging01() {
                 },
             });
 
-
+            setupdateFiles(true)
             console.log("response", response)
         } catch (error) {
 
@@ -150,12 +182,6 @@ function Poging01() {
             </fieldset>
 
 
-
-
-
-
-
-
             {showFileFromKeepName &&
             <div>fileName uit keepName: {fileName}
                 <div>
@@ -188,24 +214,24 @@ function Poging01() {
                 <div>
 
                     {showFileFromKeepName &&
-                        <fieldset className={styles.plaatjeContainer}>
+                    <fieldset className={styles.plaatjeContainer}>
 
 
-                            <img
-                                className={styles.plaatje}
-                                src={fileUrl}
-                            />
+                        <img
+                            className={styles.plaatje}
+                            src={fileUrl}
+                        />
 
-                            <button
-                                onClick={deletePicture}
+                        <button
+                            onClick={deletePicture}
 
-                            >
-                                delete plaatje
+                        >
+                            delete plaatje
 
-                            </button>
+                        </button>
 
 
-                        </fieldset>
+                    </fieldset>
                     }
 
                 </div>
@@ -214,9 +240,6 @@ function Poging01() {
             </fieldset>
 
             }
-
-
-
 
 
         </>

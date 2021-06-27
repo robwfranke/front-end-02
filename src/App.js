@@ -25,7 +25,7 @@ function App() {
 
             {/*<UploadImages />*/}
             {/*<FilesUpload/>*/}
-            <FilesUpload02/>
+            {/*<FilesUpload02/>*/}
             <Poging01/>
 
 
