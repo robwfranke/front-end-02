@@ -2,6 +2,8 @@ import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useForm} from 'react-hook-form';
 import http from "../http-common";
+import styles from "./Components.module.css"
+
 
 function Poging01() {
 
@@ -11,20 +13,23 @@ function Poging01() {
     const [length, setLength] = useState(0);
     const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState()
+    const [fileID,setFileID]=useState()
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
     const [fileToUpload, setFileToUpload] = useState();
     const [nameFileToUpload, setNameFileToUpload] = useState()
+    const[imagePreview,setImagePreview]=useState(null)
+
 
     function keepName(file) {
 
-
+        console.log("file in keepName: ",file)
         setFileName(file.name)
         setFileUrl(file.url);
+        setFileID(file.id);
         setShowFileFromKeepName(true)
 
 
-        console.log("fileNameP: ", fileName)
-        console.log("fileUrlP: ", fileUrl)
+
 
     }
 
@@ -118,6 +123,7 @@ function Poging01() {
             <div>fileName uit keepName: {fileName}
                 <div>
                     fileUrl uit keepName: {fileUrl}
+                    fileID uit keepName:{fileID}
                 </div>
 
             </div>
@@ -132,7 +138,9 @@ function Poging01() {
                     {fileInfos.map((file) => {
                             return <li key={file.url}>
                            <span
-                               onClick={() => keepName(file)}
+                               onClick={
+
+                                   () => keepName(file)}
                            >naam bij opklikken worden de gegevens doorgestuurd naar keepName: <h3>{file.name}</h3>
                            </span>
                             </li>
@@ -141,7 +149,10 @@ function Poging01() {
                 </ul>
 
                 <div>
-                    <img src={fileUrl}/>
+
+                    <img
+                        className={styles.plaatje}
+                        src={fileUrl}/>
 
                 </div>
 
@@ -159,13 +170,13 @@ function Poging01() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
                             type="text"
-                            // value={nameFileToUpload}
+
                             onChange={(e) => setNameFileToUpload(e.target.value)}
                         />
 
                         <input
                             type="file"
-                            // value={nameFileToUpload}
+                            accept="image/*"
                             onChange={(e) => setFileToUpload(e.target.files[0])}
                         />
                         <button
@@ -178,6 +189,9 @@ function Poging01() {
 
 
             </fieldset>
+
+
+
 
 
         </>

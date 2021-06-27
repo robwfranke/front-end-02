@@ -23,12 +23,12 @@ function App() {
 
             </div>
 
-
+            {/*<UploadImages />*/}
             {/*<FilesUpload/>*/}
             <FilesUpload02/>
             <Poging01/>
 
-            {/*<UploadImages />*/}
+
 
 
         </div>

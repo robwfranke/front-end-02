@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import styles from "./LeighHalliday.module.css"
+import styles from "./Components.module.css"
 
 function LeighHalliday() {
 
