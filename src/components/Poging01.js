@@ -221,7 +221,7 @@ function Poging01() {
                             className={styles.plaatje}
                             src={fileUrl}
                         />
-
+<h3>{fileName}</h3>
                         <button
                             onClick={deletePicture}
 
