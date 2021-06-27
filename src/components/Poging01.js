@@ -13,23 +13,28 @@ function Poging01() {
     const [length, setLength] = useState(0);
     const [fileName, setFileName] = useState();
     const [fileUrl, setFileUrl] = useState()
-    const [fileID,setFileID]=useState()
+    const [fileID, setFileID] = useState()
     const [showFileFromKeepName, setShowFileFromKeepName] = useState(false)
     const [fileToUpload, setFileToUpload] = useState();
     const [nameFileToUpload, setNameFileToUpload] = useState()
-    const[imagePreview,setImagePreview]=useState(null)
+    const [imagePreview, setImagePreview] = useState(null)
 
 
     function keepName(file) {
 
-        console.log("file in keepName: ",file)
+        console.log("file in keepName: ", file)
         setFileName(file.name)
         setFileUrl(file.url);
         setFileID(file.id);
         setShowFileFromKeepName(true)
 
 
+    }
 
+
+    function deletePicture(){
+        setFileUrl("")
+        setShowFileFromKeepName(false)
 
     }
 
@@ -68,17 +73,15 @@ function Poging01() {
         console.log("FileToUpload: ", fileToUpload)
 
 
-
-
         try {
-            let formData= new FormData()
+            let formData = new FormData()
 
             console.log("TRY fileToUpload:", fileToUpload)
 
             // LET OP!!!! name: "file"  DIT MOET DUS "file" blijven
             formData.append("file", fileToUpload);
 
-            console.log("FormData:",formData)
+            console.log("FormData:", formData)
 
 
             const response = await axios.post("http://localhost:8080/upload", formData, {
@@ -92,12 +95,10 @@ function Poging01() {
             });
 
 
-
-            console.log("response",response)
-        }catch (error){
+            console.log("response", response)
+        } catch (error) {
 
             console.log("Foutje bij het versturen naar backend")
-
 
 
         }
@@ -118,6 +119,42 @@ function Poging01() {
         <>
             <h2>Poging01</h2>
             <h3>Message {message} aantal files{length}</h3>
+
+
+            <fieldset>
+
+
+                <div cclassName={styles.invoer}>
+                    <h1>File kiezen en versturen naar Backend</h1>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input
+                            type="text"
+
+                            onChange={(e) => setNameFileToUpload(e.target.value)}
+                        />
+
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setFileToUpload(e.target.files[0])}
+                        />
+                        <button
+                            type="submit"
+                        >
+                            Voeg toe!
+                        </button>
+                    </form>
+                </div>
+
+
+            </fieldset>
+
+
+
+
+
+
+
 
             {showFileFromKeepName &&
             <div>fileName uit keepName: {fileName}
@@ -150,9 +187,26 @@ function Poging01() {
 
                 <div>
 
-                    <img
-                        className={styles.plaatje}
-                        src={fileUrl}/>
+                    {showFileFromKeepName &&
+                        <fieldset className={styles.plaatjeContainer}>
+
+
+                            <img
+                                className={styles.plaatje}
+                                src={fileUrl}
+                            />
+
+                            <button
+                                onClick={deletePicture}
+
+                            >
+                                delete plaatje
+
+                            </button>
+
+
+                        </fieldset>
+                    }
 
                 </div>
 
@@ -160,35 +214,6 @@ function Poging01() {
             </fieldset>
 
             }
-
-
-            <fieldset>
-
-
-                <div className="App">
-                    <h1>File kiezen en versturen naar Backend</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input
-                            type="text"
-
-                            onChange={(e) => setNameFileToUpload(e.target.value)}
-                        />
-
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setFileToUpload(e.target.files[0])}
-                        />
-                        <button
-                            type="submit"
-                        >
-                            Voeg toe!
-                        </button>
-                    </form>
-                </div>
-
-
-            </fieldset>
 
 
 
