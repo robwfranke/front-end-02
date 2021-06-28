@@ -6,7 +6,7 @@ import styles from "./Components.module.css"
 
 function Poging01() {
 
-    const {handleSubmit } = useForm();
+    const {handleSubmit} = useForm();
     const [message, setMessage] = useState();
     const [fileInfos, setFileInfos] = useState([]);
     const [length, setLength] = useState(0);
@@ -172,8 +172,9 @@ function Poging01() {
                         />
                         <button
                             type="submit"
+
                         >
-                            Voeg toe!
+                            SAVE!
                         </button>
                     </form>
                 </div>
@@ -192,7 +193,6 @@ function Poging01() {
             </div>
 
             }
-
 
 
             {/**************************************************************************************/}
