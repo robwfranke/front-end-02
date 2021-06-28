@@ -33,7 +33,7 @@ function Poging01() {
         if (updateFiles) {
             getFilesFromBackend()
             setupdateFiles(false)
-            console.log("aantal files:",fileInfos.length)
+            console.log("aantal files:", fileInfos.length)
         }
 
     }, [updateFiles]);
@@ -77,8 +77,6 @@ function Poging01() {
         }
 
     }
-
-
 
 
     async function getFilesFromBackend() {
@@ -160,13 +158,11 @@ function Poging01() {
 
             <fieldset>
 
-
                 <div className={styles.invoer}>
                     <h1>File kiezen en versturen naar Backend</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
                             type="text"
-
                             onChange={(e) => setNameFileToUpload(e.target.value)}
                         />
 
@@ -197,7 +193,7 @@ function Poging01() {
             </div>
 
             }
-{/**************************************************************************************/}
+            {/**************************************************************************************/}
             {/*KNUTSEL GEDEELTE*/}
 
 
@@ -205,40 +201,33 @@ function Poging01() {
             {fileInfos.length > 0 &&
             <fieldset>
 
-                <h1>Hier komt eerste file te staan</h1>
-                <h2>{fileInfos[0].name}</h2>
-                <h2>{fileInfos[0].url}</h2>
-                <h2>{fileInfos[0].id}</h2>
+                <h3>Hier komt eerste file te staan</h3>
+                <h4>{fileInfos[0].name}</h4>
+                <h4>{fileInfos[0].url}</h4>
+                <h4>{fileInfos[0].id}</h4>
 
-
-
-
+                <div>
+                    <img
+                        className={styles.plaatje}
+                        src={fileInfos[0].url}
+                    />
+                    <h3>{fileInfos[0].name}</h3>
+                </div>
 
             </fieldset>
             }
+
+
+
+
+
+
+
+
             {/**************************************************************************************/}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {length > 0 &&
+            {fileInfos.length > 0 &&
             <fieldset>
 
 
