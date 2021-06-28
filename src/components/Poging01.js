@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {useForm} from 'react-hook-form';
 import styles from "./Components.module.css"
@@ -6,7 +6,7 @@ import styles from "./Components.module.css"
 
 function Poging01() {
 
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {handleSubmit } = useForm();
     const [message, setMessage] = useState();
     const [fileInfos, setFileInfos] = useState([]);
     const [length, setLength] = useState(0);
@@ -33,7 +33,6 @@ function Poging01() {
         if (updateFiles) {
             getFilesFromBackend()
             setupdateFiles(false)
-            console.log("aantal files:", fileInfos.length)
         }
 
     }, [updateFiles]);
@@ -193,11 +192,11 @@ function Poging01() {
             </div>
 
             }
+
+
+
             {/**************************************************************************************/}
-            {/*KNUTSEL GEDEELTE*/}
 
-
-            {/*test op length is niet ok!!, proberen of je op lengte van fileInfos kunt testen*/}
             {fileInfos.length > 0 &&
             <fieldset>
 
@@ -209,6 +208,7 @@ function Poging01() {
                 <div>
                     <img
                         className={styles.plaatje}
+                        alt={"Eerste file in fileinfos"}
                         src={fileInfos[0].url}
                     />
                     <h3>{fileInfos[0].name}</h3>
@@ -216,13 +216,6 @@ function Poging01() {
 
             </fieldset>
             }
-
-
-
-
-
-
-
 
             {/**************************************************************************************/}
 
@@ -253,15 +246,15 @@ function Poging01() {
 
                         <img
                             className={styles.plaatje}
+                            alt={"Eerste file in fileinfos"}
+
                             src={fileUrl}
                         />
                         <h3>{fileName}</h3>
                         <button
                             onClick={deletePicture}
-
                         >
                             delete plaatje
-
                         </button>
 
 
