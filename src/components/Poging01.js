@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {useForm} from 'react-hook-form';
-import http from "../http-common";
 import styles from "./Components.module.css"
 
 
@@ -20,6 +19,28 @@ function Poging01() {
     const [updateFiles, setupdateFiles] = useState(false)
 
 
+    // *******************UseEffect********************
+
+    useEffect(() => {
+        getFilesFromBackend()
+
+        // setupdateFiles(true)
+    }, []);
+
+    //
+    useEffect(() => {
+        console.log("UseEffect updateFiles")
+        if (updateFiles) {
+            getFilesFromBackend()
+            setupdateFiles(false)
+            console.log("aantal files:",fileInfos.length)
+        }
+
+    }, [updateFiles]);
+
+
+    // ***********************************************************
+
     function keepName(file) {
 
         console.log("file in keepName: ", file)
@@ -36,7 +57,7 @@ function Poging01() {
     async function deletePicture() {
         setFileUrl("")
         setShowFileFromKeepName(false)
-        console.log("FILE ID:",fileID)
+        console.log("FILE ID:", fileID)
         try {
             // const response = await axios.delete(`http://localhost:8080/orders/delete/ordername/${orderName}`, {
 
@@ -51,10 +72,6 @@ function Poging01() {
             console.log("PLAATJE WEG")
 
 
-
-
-
-
         } catch (error) {
             console.log("PLAATJE NIET WEG")
         }
@@ -62,18 +79,6 @@ function Poging01() {
     }
 
 
-    useEffect(() => {
-        getFilesFromBackend()
-    }, []);
-
-
-    useEffect(() => {
-        if(updateFiles){
-            getFilesFromBackend()
-            setupdateFiles(false)
-        }
-
-    }, [updateFiles]);
 
 
     async function getFilesFromBackend() {
@@ -156,7 +161,7 @@ function Poging01() {
             <fieldset>
 
 
-                <div cclassName={styles.invoer}>
+                <div className={styles.invoer}>
                     <h1>File kiezen en versturen naar Backend</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input
@@ -192,6 +197,46 @@ function Poging01() {
             </div>
 
             }
+{/**************************************************************************************/}
+            {/*KNUTSEL GEDEELTE*/}
+
+
+            {/*test op length is niet ok!!, proberen of je op lengte van fileInfos kunt testen*/}
+            {fileInfos.length > 0 &&
+            <fieldset>
+
+                <h1>Hier komt eerste file te staan</h1>
+                <h2>{fileInfos[0].name}</h2>
+                <h2>{fileInfos[0].url}</h2>
+                <h2>{fileInfos[0].id}</h2>
+
+
+
+
+
+            </fieldset>
+            }
+            {/**************************************************************************************/}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {length > 0 &&
             <fieldset>
@@ -221,7 +266,7 @@ function Poging01() {
                             className={styles.plaatje}
                             src={fileUrl}
                         />
-<h3>{fileName}</h3>
+                        <h3>{fileName}</h3>
                         <button
                             onClick={deletePicture}
 
