@@ -49,18 +49,16 @@ function Poging01() {
         setFileID(file.id);
         setShowFileFromKeepName(true)
 
-
     }
-
+    // ***********************************************************
 
     async function deletePicture() {
         setFileUrl("")
         setShowFileFromKeepName(false)
         console.log("FILE ID:", fileID)
         try {
-            // const response = await axios.delete(`http://localhost:8080/orders/delete/ordername/${orderName}`, {
 
-            const response = await axios.delete(`http://localhost:8080/files/${fileID}`, {
+            const response = await axios.delete(`http://localhost:8080/file/files/${fileID}`, {
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: `Bearer ${jwtToken}`, /*BACK TICK!!!!!*/
@@ -83,7 +81,7 @@ function Poging01() {
         try {
             console.log("IN getFilesFromBackend")
 
-            const response = await axios.get("http://localhost:8080/files")
+            const response = await axios.get("http://localhost:8080/file/files")
 
 
             setMessage("Files goed opgehaald uit de backend")
@@ -118,12 +116,11 @@ function Poging01() {
             console.log("FormData:", formData)
 
 
-            const response = await axios.post("http://localhost:8080/upload", formData, {
+            const response = await axios.post("http://localhost:8080/file/upload", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
 
                     "Content-type": "application/json",
-
 
                 },
             });
