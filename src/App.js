@@ -5,8 +5,8 @@ import Poging01 from "./components/Poging01";
 
 function App() {
     return (
-        <div className="container" style={{width: "600px"}}>
-            <div className="my-3">
+        <div >
+            <div >
 
 
             </div>
